@@ -10,15 +10,17 @@
 | 2026-05-13 | Mini LLM Wiki foundation | 구현/검증 완료 | `docs/superpowers/plans/2026-05-13-mini-llm-wiki.md` |
 | 2026-05-13 | 로그인/메인 HTML 목업 | 구현/검증 완료 | `docs/superpowers/plans/2026-05-13-login-main-mockup.md` |
 | 2026-05-13 | 챗봇 근거 시각화 목업 | 구현/검증 완료 | `docs/superpowers/plans/2026-05-13-chatbot-visualization-mockup.md` |
+| 2026-05-13 | 개인화 SW 내비게이터 umbrella 설계 | 설계/계획 작성 완료 | `docs/superpowers/specs/2026-05-13-personalized-sw-navigator-design.md`, `docs/superpowers/plans/2026-05-13-personalized-sw-navigator-foundation.md` |
 
 ## 다음 작업 후보
 
 1. FastAPI 설정 분리와 `/api` 라우터 구조 생성
-2. Supabase schema 적용과 RLS 검토
-3. Gemini service와 embedding service 구현
-4. raw/wiki chunk embedding ingest script 구현
-5. RAG chat API와 wiki-first retrieval 구현
-6. React 앱 shell과 탭 UI 구현
+2. Supabase schema에 profile/memory/chat/calendar token 테이블과 RLS 추가
+3. 프로필/메모리 API와 메모리 이벤트 기록 구현
+4. 홈 AI 상담 shell과 대화형 선택지 UX 구현
+5. Gemini service, embedding service, raw/wiki ingest script 구현
+6. RAG chat API, retrieval router, Google grounding 구현
+7. 일정 D-day와 Google Calendar 내보내기 구현
 
 ## 상태 기록 규칙
 

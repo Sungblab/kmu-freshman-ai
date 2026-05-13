@@ -63,6 +63,47 @@ brainstorming
 Use $kmu-freshman-ai before working in the kmu-freshman-ai repo.
 ```
 
+추가로 개발 현황을 따라가기 위한 `kmu-freshman-ai-next-step` 스킬을 둡니다.
+
+```txt
+~/.codex/skills/kmu-freshman-ai-next-step
+```
+
+이 스킬은 새 세션에서 문서, git 상태, 실제 코드, 검증 기록을 함께 읽고 현재 구현 상태와 다음 구현 단위를 추천하기 위한 가이드입니다. 단순히 `plans-status.md`만 믿지 않고 실제 파일과 테스트 근거를 대조하도록 지시합니다.
+
+사용 예시:
+
+```txt
+Use $kmu-freshman-ai-next-step to inspect current implementation status and recommend the next KMU Freshman AI development slice.
+```
+
+## LLM 개발 하네스
+
+이 프로젝트에서 하네스는 LLM이 마음대로 코드를 생성하지 않도록 작업 범위, 문서 읽기 순서, 검증 절차를 고정하는 운영 장치입니다. 보고서에서는 이 구조를 “AI 개발 도구를 통제하고 검증하면서 활용한 방식”으로 설명합니다.
+
+| 구성 요소 | 위치 | 역할 |
+| --- | --- | --- |
+| repo 규칙 | `AGENTS.md` | 한국어 응답, 문서 읽기 순서, Superpowers 흐름, 완료 전 검증 규칙을 고정 |
+| 문서 라우터 | `docs/README.md` | PRD, roadmap, feature registry, architecture, testing 문서로 이동하는 출발점 |
+| 작업 상태 | `docs/contributing/plans-status.md` | 현재 활성 작업과 다음 작업 후보를 기록 |
+| 기능 레지스트리 | `docs/contributing/feature-registry.md` | 기능별 소유 경로와 중복 방지 규칙을 기록 |
+| 설계/계획 기록 | `docs/superpowers/specs/`, `docs/superpowers/plans/` | 기능을 구현하기 전 요구사항과 실행 순서를 남김 |
+| Codex 스킬 | `~/.codex/skills/kmu-freshman-ai` | 새 Codex 세션이 과제 조건과 repo 규칙을 복원하도록 함 |
+| 다음 작업 스킬 | `~/.codex/skills/kmu-freshman-ai-next-step` | 현재 구현 상태를 다시 읽고 다음 vertical slice를 고르도록 함 |
+| 검증 명령 | `pnpm docs:check`, `pnpm wiki:build`, `pnpm test:backend`, `pnpm lint:backend`, `pnpm build:frontend` | 문서, Python 백엔드, wiki 생성, 프론트 빌드가 실제로 동작하는지 확인 |
+| 사용 기록 | `docs/llm/usage-log.md`, `docs/llm/prompt-summary-log.md` | 어떤 목적으로 LLM을 썼고 어떤 결정을 사람이 검토했는지 제출용으로 남김 |
+
+이 구조의 핵심은 “프롬프트 한 번으로 완성된 코드”가 아니라, 다음 순서를 반복했다는 점입니다.
+
+```txt
+AGENTS.md와 docs/README.md로 규칙 복원
+-> PRD/roadmap/feature registry로 범위 확인
+-> spec/plan으로 구현 단위 기록
+-> 코드 작성
+-> 검증 명령 실행
+-> usage log와 prompt summary에 LLM 사용 결과 기록
+```
+
 ## 코드 리뷰 활용
 
 기능 단위 작업은 PR을 통해 Gemini Code Assist 자동 리뷰와 팀원 리뷰를 받습니다. 리뷰 코멘트는 그대로 따르는 것이 아니라, 타당성을 확인한 뒤 반영하거나 반영하지 않는 이유를 답합니다. 이 과정은 “LLM 생성 코드를 그대로 제출하지 않았다”는 협업 증거로 사용합니다.

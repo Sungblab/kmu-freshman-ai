@@ -6,13 +6,31 @@
 사용자 질문
 -> React UI
 -> FastAPI /api/chat
--> Gemini embedding 생성
--> Supabase pgvector RPC 검색
--> 관련 chunk 3-5개 선택
+-> intent classifier
+-> 관련 user memory embedding 검색
+-> retrieval router
+-> 내부 RAG / Google grounding / 일정 parser 선택
 -> Gemini 답변 생성
 -> chat_logs, llm_usage_logs 저장
--> 답변과 출처 반환
+-> 답변, 추천 액션, 개인화/내부자료/웹 근거 반환
 ```
+
+질문이 학교/학과 자료에 관한 것이면 Mini LLM Wiki와 raw chunk를 검색합니다. 질문이 최신 진로/취업/창업 정보에 관한 것이면 Google grounding을 사용합니다. 복합 질문은 사용자 메모리, 내부 RAG, Google grounding을 함께 사용합니다.
+
+## 1.1 개인화 메모리 흐름
+
+```txt
+사용자 발화
+-> memory extractor
+-> 저장 후보 생성
+-> 민감도 정책 적용
+-> 자동 저장 또는 사용자 확인
+-> user_memories 저장
+-> embedding 생성
+-> memory_events에 생성/확인/거절 기록
+```
+
+낮은 민감도 정보는 자동 저장 후 사용자에게 알려줍니다. 취업 불안, 학점 고민처럼 민감할 수 있는 정보는 저장 전 확인합니다.
 
 ## 2. 문서 ingest 흐름
 
@@ -34,10 +52,12 @@ Mini LLM Wiki는 원문 자료와 답변 사이의 중간 지식 계층입니다
 ```txt
 사용자 관심사 입력
 -> FastAPI /api/recommend/*
--> Python 딕셔너리 규칙 조회
--> 조건문으로 추천 분기
--> 필요 시 Gemini로 설명 문장 보강
--> 추천 결과 반환
+-> profile과 user memory 조회
+-> Python 딕셔너리 규칙과 점수 계산
+-> 내부 RAG로 학교 자료 근거 보강
+-> 필요 시 Google grounding으로 최신 정보 보강
+-> Gemini로 설명 문장 생성
+-> 추천 결과와 근거 반환
 -> llm_usage_logs 저장
 ```
 
@@ -50,6 +70,7 @@ Mini LLM Wiki는 원문 자료와 답변 사이의 중간 지식 계층입니다
 -> 사용자 확인
 -> FastAPI /api/assignments 저장
 -> due_at 기준 D-day 계산
+-> 사용자가 원하면 Google Calendar event 생성
 -> 일정 목록 반환
 ```
 

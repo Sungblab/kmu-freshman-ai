@@ -10,6 +10,7 @@
 | 현재 제품 방향 | `contributing/roadmap.md` |
 | 기능별 소유 영역 | `contributing/feature-registry.md` |
 | 데모 흐름 | `product/demo-scenario.md` |
+| 개인화 SW 내비게이터 확장 설계 | `superpowers/specs/2026-05-13-personalized-sw-navigator-design.md` |
 
 ## 개발과 기여
 
