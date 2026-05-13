@@ -11,6 +11,7 @@
 | 2026-05-13 | 김성빈 | Codex | repo 초기 문서와 공개 GitHub 세팅 준비 | README, CONTRIBUTING, AGENTS, docs 구조, LLM 기록 템플릿 작성 | 김성빈이 PM/개발 리드 역할과 팀원 역할 미정을 반영 |
 | 2026-05-13 | 김성빈 | Codex | 패키지 구조와 GitHub 운영 방식 정리 | pnpm workspace, uv backend, Docker 선택 사항, PR/Issue 템플릿, verify workflow 구성 | 수업 MVP에서는 Supabase Cloud를 기본으로 쓰고 Docker를 필수 요구사항에서 제외하기로 결정 |
 | 2026-05-13 | 김성빈 | Codex | OpenCairn/UnivMind 구현 참고 후 Mini LLM Wiki 설계/구현 | raw/wiki 자료 구조, heading-aware chunker, wiki compiler, schema 확장, wiki 생성 script 추가 | LangGraph/worker는 과제 범위에서 제외하고 Python script로 축소 구현 |
+| 2026-05-13 | 김성빈 | Codex | 코드 리뷰와 주석 기록 방식 정리 | Gemini Code Assist 자동 리뷰, 팀원 리뷰, 리뷰 반영/미반영 이유, 의도 주석을 제출 증거로 남기는 규칙 추가 | 리뷰 코멘트를 맹목적으로 반영하지 않고 직접 판단한 근거를 PR thread와 문서에 남기기로 결정 |
 
 ## 앱 기능별 Gemini API 기록 예정 항목
 

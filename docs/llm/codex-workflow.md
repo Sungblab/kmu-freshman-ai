@@ -30,6 +30,7 @@ brainstorming
 | LLM 활용 기록 | `docs/llm/usage-log.md` | 제출용 LLM 사용 내역 |
 | 프롬프트 요약 | `docs/llm/prompt-summary-log.md` | 중요한 요청과 결정 요약 |
 | 작업 상태 | `docs/contributing/plans-status.md` | 현재 진행 상황 |
+| 리뷰 대응 기록 | GitHub PR thread, 관련 plan 문서 | Gemini Code Assist/팀원 리뷰를 어떻게 반영했는지 증명 |
 
 ## Codex 사용 예시
 
@@ -39,3 +40,8 @@ brainstorming
 - 기술 스택 후보와 공식 문서 근거를 대조하는 데 사용
 - 검증 명령과 GitHub 공개 repo 세팅을 점검하는 데 사용
 
+## 코드 리뷰 활용
+
+기능 단위 작업은 PR을 통해 Gemini Code Assist 자동 리뷰와 팀원 리뷰를 받습니다. 리뷰 코멘트는 그대로 따르는 것이 아니라, 타당성을 확인한 뒤 반영하거나 반영하지 않는 이유를 답합니다. 이 과정은 “LLM 생성 코드를 그대로 제출하지 않았다”는 협업 증거로 사용합니다.
+
+코드 주석은 설명 가능한 부분에만 답니다. 특히 RAG 검색 우선순위, wiki compiler의 병합 규칙, 추천 조건문처럼 발표에서 질문받을 가능성이 높은 의사결정에는 짧은 의도 주석을 남깁니다.
