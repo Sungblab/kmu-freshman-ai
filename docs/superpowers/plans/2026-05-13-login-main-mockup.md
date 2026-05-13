@@ -69,11 +69,37 @@ Add `viewport-fit=cover`, `theme-color`, `100dvh`, safe-area padding, and mobile
 
 - [x] **Step 3: Convert main navigation on phones**
 
-At phone width, convert the desktop sidebar into a fixed bottom tab bar with short Korean labels.
+At phone width, convert the desktop menu into a regular top menu bar with short Korean labels. Do not use a fixed bottom tab bar.
 
 - [x] **Step 4: Reflow content for mobile**
 
 Use one-column layout, sticky topbar, full-width action button, larger textarea, compact panels, and no desktop shadow on mobile.
+
+Actual result:
+
+- `pnpm docs:check`: passed, required 19 documents found.
+- `pnpm build:frontend`: passed, Vite production build completed.
+- `git diff --check`: passed.
+
+### Task 3: Menu Bar Revision
+
+**Files:**
+- Modify: `frontend/mockups/styles.css`
+- Modify: `docs/superpowers/specs/2026-05-13-login-main-mockup-design.md`
+- Modify: `docs/superpowers/plans/2026-05-13-login-main-mockup.md`
+- Modify: `docs/llm/usage-log.md`
+
+- [x] **Step 1: Remove mobile bottom tab bar**
+
+Remove the fixed bottom mobile navigation pattern because it makes the page feel too much like a native app and weakens the PC/web app continuity.
+
+- [x] **Step 2: Use a regular top menu bar**
+
+Make the navigation a top menu bar on desktop and tablet, then keep the same menu pattern on mobile with horizontal scroll.
+
+- [x] **Step 3: Preserve mobile readability**
+
+Keep one-column mobile content, Pretendard typography, safe-area handling, and 48px form/button touch targets.
 
 Actual result:
 
