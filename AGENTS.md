@@ -22,12 +22,35 @@
 
 이 repo는 LLM 활용 기록 자체가 과제 산출물입니다. 큰 기능은 다음 흐름을 남깁니다.
 
+작업을 시작할 때는 프로젝트 전용 Codex 스킬을 먼저 호출합니다.
+
+```txt
+Use $kmu-freshman-ai before working in the kmu-freshman-ai repo.
+```
+
 1. Brainstorming: 요구사항과 범위를 정리합니다.
 2. Spec: `docs/superpowers/specs/`에 설계 문서를 작성합니다.
 3. Plan: `docs/superpowers/plans/`에 실행 계획을 작성합니다.
 4. Implementation: 계획 단위로 구현합니다.
 5. Verification: 실행한 테스트, 빌드, 수동 검증을 기록합니다.
-6. LLM Log: LLM 사용 목적과 결과를 `docs/llm/usage-log.md`에 남깁니다.
+6. Documentation Update: 변경된 기능, 상태, 실행 결과를 관련 문서에 반영합니다.
+7. Code Review: 완료 전 코드 리뷰를 수행하거나 PR에서 Gemini Code Assist/팀원 리뷰를 확인합니다.
+8. LLM Log: LLM 사용 목적과 결과를 `docs/llm/usage-log.md`에 남깁니다.
+
+## 완료 전 필수 절차
+
+모든 개발 작업이 끝날 때는 아래 절차를 생략하지 않습니다.
+
+1. 관련 문서를 갱신합니다.
+   - `docs/contributing/feature-registry.md`
+   - `docs/contributing/plans-status.md`
+   - 관련 `docs/superpowers/specs/*.md`
+   - 관련 `docs/superpowers/plans/*.md`
+   - 필요한 경우 `docs/llm/usage-log.md`
+2. `superpowers:verification-before-completion`을 호출하고 검증 명령을 실행합니다.
+3. `superpowers:requesting-code-review`를 호출해 코드 리뷰 관점으로 변경을 점검합니다.
+4. PR 기반 작업이면 Gemini Code Assist와 팀원 리뷰를 확인하고, 반영/미반영 이유를 남깁니다.
+5. 직접 push 작업이면 최소한 자체 코드 리뷰 결과와 검증 명령을 plan 또는 LLM 활용 기록에 남깁니다.
 
 ## 기여 규칙
 

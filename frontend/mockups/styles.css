@@ -450,6 +450,227 @@ a {
   background: var(--surface);
 }
 
+.conversation-card,
+.evidence-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.chat-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 16px;
+  padding: 16px;
+}
+
+.conversation-card,
+.evidence-card {
+  padding: 18px;
+}
+
+.message-list {
+  display: grid;
+  gap: 12px;
+}
+
+.message {
+  max-width: 82%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.message p {
+  margin: 6px 0 0;
+  line-height: 1.72;
+}
+
+.message-label {
+  color: var(--ink-muted);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.assistant-message {
+  background: var(--surface-muted);
+}
+
+.user-message {
+  justify-self: end;
+  background: var(--ink);
+  color: #fff;
+}
+
+.user-message .message-label {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.answer-message {
+  max-width: 100%;
+  background: #fff;
+}
+
+.answer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.chat-composer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 132px;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.chat-composer textarea {
+  min-height: 72px;
+  resize: none;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  padding: 12px;
+  color: var(--ink);
+  line-height: 1.6;
+  outline: none;
+}
+
+.chat-composer textarea:focus {
+  border-color: var(--ink);
+}
+
+.evidence-column {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+}
+
+.evidence-graph {
+  position: relative;
+  display: grid;
+  gap: 12px;
+}
+
+.evidence-graph::before {
+  position: absolute;
+  inset: 42px 50% 72px auto;
+  width: 1px;
+  background: var(--line-strong);
+  content: "";
+}
+
+.graph-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.graph-node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 64px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-muted);
+  color: #333330;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.graph-node-question {
+  width: min(210px, 100%);
+  margin: 0 auto;
+  background: var(--ink);
+  color: #fff;
+}
+
+.graph-node-source {
+  border-style: dashed;
+  background: #fff;
+  color: var(--ink-muted);
+}
+
+.roadmap-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.roadmap-list li {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-muted);
+  padding: 13px 13px 13px 42px;
+}
+
+.roadmap-list li::before {
+  position: absolute;
+  top: 16px;
+  left: 14px;
+  display: grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  content: counter(list-item);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.roadmap-list strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.roadmap-list span {
+  color: var(--ink-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.source-flow,
+.reason-chain {
+  display: grid;
+  gap: 8px;
+}
+
+.source-flow span,
+.reason-chain span {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-muted);
+  padding: 11px 12px;
+  color: #333330;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.source-flow span + span,
+.reason-chain span + span {
+  position: relative;
+}
+
+.source-flow span + span::before,
+.reason-chain span + span::before {
+  display: block;
+  width: 1px;
+  height: 8px;
+  margin: -9px auto 8px;
+  background: var(--line-strong);
+  content: "";
+}
+
 .answer-body {
   color: #30302d;
   line-height: 1.8;
@@ -511,7 +732,8 @@ a {
 
 @media (max-width: 1000px) {
   .login-shell,
-  .content-grid {
+  .content-grid,
+  .chat-layout {
     grid-template-columns: 1fr;
   }
 
@@ -731,7 +953,9 @@ a {
 
   .app-panel,
   .side-card,
-  .answer-card {
+  .answer-card,
+  .conversation-card,
+  .evidence-card {
     padding: 15px;
     box-shadow: none;
   }
@@ -768,6 +992,23 @@ a {
   .answer-body {
     font-size: 14px;
     line-height: 1.75;
+  }
+
+  .chat-layout {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .message {
+    max-width: 100%;
+  }
+
+  .chat-composer {
+    grid-template-columns: 1fr;
+  }
+
+  .evidence-column {
+    gap: 12px;
   }
 
   .table-row {

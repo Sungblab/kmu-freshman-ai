@@ -18,6 +18,7 @@
 | rag-ingest | planned | `backend/app/services/`, `data/` | Markdown chunking, embedding, Supabase insert | embedding 차원은 768로 유지 |
 | rag-chat | planned | `backend/app/api/`, `frontend/src/` | 질문 답변, 출처 표시, chat log | 답변은 검색된 문서 근거가 부족하면 제한적으로 답변 |
 | frontend-ui-mockups | complete | `frontend/mockups/`, `docs/superpowers/specs/`, `docs/superpowers/plans/` | 로그인/메인 화면의 정적 HTML 목업 | React 구현 전 목업 기준을 먼저 확인 |
+| chatbot-evidence-visualization | complete | `frontend/mockups/chatbot.html`, `frontend/mockups/styles.css`, `docs/superpowers/specs/`, `docs/superpowers/plans/` | 챗봇 답변 옆에 출처, 로드맵, 추천 이유를 시각화하는 목업 | 실제 RAG 구현 전 근거 표시 UX를 먼저 고정 |
 | recommend-track-club | planned | `backend/app/services/`, `frontend/src/` | 트랙/동아리/활동 추천 | 조건문/딕셔너리 기반 로직을 발표 가능하게 유지 |
 | schedule-dday | planned | `backend/app/services/`, `frontend/src/` | 자연어 일정 추출, 저장, D-day | 저장 전 미리보기 흐름을 우선 |
 | llm-usage-log | planned | `docs/llm/`, `backend/app/services/` | 개발 과정 기록과 앱 사용 로그 | Codex 사용과 Gemini API 사용을 구분 |
