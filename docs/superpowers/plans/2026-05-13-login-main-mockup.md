@@ -50,3 +50,33 @@ Actual result:
 - `pnpm docs:check`: passed, required 19 documents found.
 - `pnpm build:frontend`: passed, Vite production build completed.
 - `git diff --check`: passed.
+
+### Task 2: Mobile-First Refinement
+
+**Files:**
+- Modify: `frontend/mockups/styles.css`
+- Modify: `frontend/mockups/login.html`
+- Modify: `frontend/mockups/main.html`
+- Modify: `docs/superpowers/specs/2026-05-13-login-main-mockup-design.md`
+
+- [x] **Step 1: Add Korean typography**
+
+Use Pretendard as the first font family and keep `Noto Sans KR` plus system fonts as fallback.
+
+- [x] **Step 2: Improve mobile viewport handling**
+
+Add `viewport-fit=cover`, `theme-color`, `100dvh`, safe-area padding, and mobile touch sizing.
+
+- [x] **Step 3: Convert main navigation on phones**
+
+At phone width, convert the desktop sidebar into a fixed bottom tab bar with short Korean labels.
+
+- [x] **Step 4: Reflow content for mobile**
+
+Use one-column layout, sticky topbar, full-width action button, larger textarea, compact panels, and no desktop shadow on mobile.
+
+Actual result:
+
+- `pnpm docs:check`: passed, required 19 documents found.
+- `pnpm build:frontend`: passed, Vite production build completed.
+- `git diff --check`: passed.
