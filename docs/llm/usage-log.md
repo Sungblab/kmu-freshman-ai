@@ -71,6 +71,9 @@
 | 2026-05-14 | 김성빈 | Codex | 로컬 검증 명령 통합 | 외부 키 없이 실행 가능한 문서 검사, wiki build, RAG dry-run, 제출 증거 검사, 테스트, lint, frontend build를 `pnpm verify:local`로 묶음 | 김성빈이 제출 전 반복 실행할 기본 검증 흐름으로 채택했고, 실제 `pnpm verify:local`과 `git diff --check` 결과를 확인 |
 | 2026-05-14 | 김성빈 | Codex | 로컬 dev server 접속 오류 점검 | `localhost refused` 이후 backend/frontend dev server를 띄우고 Playwright console log로 CORS 원인을 확인해 Vite fallback port 허용과 favicon을 추가 | CORS 테스트를 먼저 실패시킨 뒤 수정했고, `pnpm verify:local`, `pnpm build:frontend`, Playwright smoke로 직접 검증 |
 | 2026-05-14 | 김성빈 | Codex | Supabase Framework client key 연결 | Supabase Dashboard가 제공한 `VITE_SUPABASE_PUBLISHABLE_KEY`를 프론트 env에 적용하고 기존 `VITE_SUPABASE_ANON_KEY` alias와 함께 지원 | 비밀값은 git ignored `.env`에만 두고, publishable key alias tests를 먼저 실패시킨 뒤 `pnpm verify:local`로 검증 |
+| 2026-05-16 | 김성빈 | Codex | 에이전트 기반 코딩 활용 증거 문서 보강 | `docs/llm/agent-coding-evidence.md`를 추가하고 codex workflow, 보고서 목차, 발표 구성, 제출 체크리스트, feature registry, plans status, docs check 필수 목록을 연결 | 교수님 평가 포인트에 맞춰 “AI가 대신 코딩”이 아니라 “에이전트를 통제하고 검증한 개발 과정”으로 설명하도록 직접 문구와 제출 증거 흐름을 정리 |
+| 2026-05-16 | 김성빈 | Codex | LLM 생성 코드 그대로 사용 금지 증거 강화 | `pnpm submission:check`에 “LLM 생성 코드 그대로 사용 금지 증거” 항목을 추가하고 Python 핵심 로직 문서와 제출 체크리스트에 직접 검토/수정/테스트 근거를 보강 | 주석만으로 방어하지 않고, 설명 가능한 Python 로직 문서와 자동 제출 증거 체크를 함께 사용하기로 결정 |
+| 2026-05-16 | 김성빈 | Codex | 응답 종료 전 문서 갱신 판단 규칙 추가 | `AGENTS.md`에 답변을 끝내기 전 문서 갱신 필요 여부를 판단하고, 필요할 때만 관련 문서를 갱신하는 규칙 추가 | 매번 문서를 억지로 수정하지 않고 기능/API/검증/제출 설명 변화가 있을 때만 문서화하도록 운영 기준을 정리 |
 
 ## 앱 기능별 Gemini API 기록 예정 항목
 

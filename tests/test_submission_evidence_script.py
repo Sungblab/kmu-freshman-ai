@@ -16,4 +16,5 @@ def test_submission_evidence_checks_current_repo() -> None:
         "의미 있는 출력",
         "실행 가능한 Python 코드",
         "LLM 활용 기록",
+        "LLM 생성 코드 그대로 사용 금지 증거",
     }

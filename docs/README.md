@@ -35,6 +35,7 @@
 | 필요 | 문서 |
 | --- | --- |
 | Codex/Superpowers 워크플로우 | `llm/codex-workflow.md` |
+| 에이전트 기반 코딩 활용 증거 | `llm/agent-coding-evidence.md` |
 | LLM 활용 기록 | `llm/usage-log.md` |
 | 프롬프트 요약 기록 | `llm/prompt-summary-log.md` |
 | 팀 역할 | `collaboration/team-roles.md` |

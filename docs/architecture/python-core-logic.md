@@ -16,8 +16,19 @@
 | 의미 있는 출력 | `ChatResponse`, `MemoryResponse`, `MemoryEventResponse` | 입력에 따라 상담 답변, intent, 선택지, 근거, 메모리 상태가 달라진다. |
 | 실행 가능한 Python 코드 | `backend/app/services/`, `backend/app/api/`, `backend/tests/` | `pnpm test:backend`로 재현 가능한 FastAPI/Python 테스트를 실행할 수 있다. |
 | LLM 활용 기록 | `docs/llm/usage-log.md` | LLM 사용 목적과 직접 검토/수정/검증한 내용을 기록한다. |
+| LLM 생성 코드 그대로 사용 금지 | `AGENTS.md`, `docs/llm/agent-coding-evidence.md`, `docs/report/submission-checklist.md` | 코드 주석, 테스트, 검증 기록, 직접 수정 내역으로 LLM 출력물을 그대로 제출하지 않았음을 설명한다. |
 
 보고서에는 이 표를 기준으로 “핵심 Python 로직은 직접 검토하고 수정했으며, 조건문/반복문/함수/리스트/딕셔너리를 사용해 사용자 입력에 따른 결과를 만들었다”고 설명한다.
+
+## LLM 생성 코드 그대로 사용 금지 대응
+
+교수님이 금지한 것은 LLM 사용 자체가 아니라, 생성된 코드를 이해와 수정 없이 그대로 제출하는 것이다. 이 프로젝트는 다음 방식으로 그 위험을 줄인다.
+
+- 핵심 로직은 `service` 함수로 분리해 발표에서 입력, 분기, 반복, 출력 흐름을 설명할 수 있게 한다.
+- 추천, 일정, RAG 근거 선택, 메모리 민감도처럼 판단이 들어가는 부분에는 “왜 이 기준을 쓰는지”를 주석으로 남긴다.
+- `backend/tests/`와 `tests/`로 동작을 재현해, 코드가 단순 복사물이 아니라 실행 검증된 구현임을 보인다.
+- `docs/llm/usage-log.md`에는 Codex가 도운 목적과 사람이 직접 검토/수정/검증한 내용을 기록한다.
+- `pnpm submission:check`는 “LLM 생성 코드 그대로 사용 금지 증거” 항목까지 확인해 제출 전 누락을 잡는다.
 
 ## 0. 사용자 인증과 user_id 결정
 

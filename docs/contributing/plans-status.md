@@ -38,6 +38,7 @@
 | 2026-05-14 | 로컬 검증 명령 통합 | `pnpm verify:local` 추가 및 README/dev-guide/submission checklist 반영, 전체 로컬 검증 통과 | `package.json`, `README.md`, `docs/contributing/dev-guide.md`, `docs/report/submission-checklist.md` |
 | 2026-05-14 | 로컬 dev server/CORS 점검 | `localhost` 접속 거부와 Vite fallback port CORS 문제를 확인하고 backend CORS regex, favicon, Playwright smoke로 정리 | `backend/app/main.py`, `backend/tests/test_cors.py`, `frontend/index.html`, `frontend/public/favicon.svg` |
 | 2026-05-14 | Supabase publishable key 연결 | `frontend/.env`에 Framework client key를 설정하고 `VITE_SUPABASE_PUBLISHABLE_KEY` alias를 frontend/env smoke scripts에 반영 | `frontend/src/lib/supabase.ts`, `backend/app/scripts/check_env.py`, `backend/app/scripts/live_smoke_plan.py`, `backend/app/scripts/supabase_login_smoke.py` |
+| 2026-05-16 | 에이전트 기반 코딩 증거 문서 보강 | 교수님 평가 포인트에 맞춰 Codex/Superpowers/Gemini Code Assist/Gemini API 역할, 하네스, 직접 검토 기준, 발표/보고서 연결 문서화 | `docs/llm/agent-coding-evidence.md`, `docs/llm/codex-workflow.md`, `docs/report/` |
 
 ## 다음 작업 후보
 

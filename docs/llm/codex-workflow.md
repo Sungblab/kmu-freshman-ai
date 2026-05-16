@@ -45,7 +45,8 @@ brainstorming
 김성빈의 로컬 Codex 환경에는 현재 repo인 `kmu-sw-navigator` 작업 규칙을 복원하는 전용 스킬을 둡니다. 스킬은 새 Codex 세션이 시작될 때 아래 내용을 빠르게 복원하기 위한 가이드입니다.
 
 ```txt
-~/.codex/skills/<project-skill>
+~/.codex/skills/kmu-sw-navigator-rules
+~/.codex/skills/kmu-sw-navigator-post-feature
 ```
 
 - 과제 조건과 제출물
@@ -58,13 +59,15 @@ brainstorming
 사용 예시:
 
 ```txt
-Use the project Codex skill before working in the kmu-sw-navigator repo.
+Use $kmu-sw-navigator-rules before working in kmu-sw-navigator.
+Use $kmu-sw-navigator-post-feature to finish this kmu-sw-navigator change.
 ```
 
 추가로 개발 현황을 따라가기 위한 next-step 스킬을 둡니다.
 
 ```txt
-~/.codex/skills/<project-next-step-skill>
+~/.codex/skills/kmu-sw-navigator-next-step
+~/.codex/skills/kmu-sw-navigator-parallel-sessions
 ```
 
 이 스킬은 새 세션에서 문서, git 상태, 실제 코드, 검증 기록을 함께 읽고 현재 구현 상태와 다음 구현 단위를 추천하기 위한 가이드입니다. 단순히 `plans-status.md`만 믿지 않고 실제 파일과 테스트 근거를 대조하도록 지시합니다.
@@ -72,7 +75,8 @@ Use the project Codex skill before working in the kmu-sw-navigator repo.
 사용 예시:
 
 ```txt
-Use the project next-step skill to inspect current implementation status and recommend the next kmu-sw-navigator development slice.
+Use $kmu-sw-navigator-next-step to inspect current status and recommend the next slice.
+Use $kmu-sw-navigator-parallel-sessions to split safe parallel worktrees and prompts.
 ```
 
 ## LLM 개발 하네스
@@ -86,10 +90,18 @@ Use the project next-step skill to inspect current implementation status and rec
 | 작업 상태 | `docs/contributing/plans-status.md` | 현재 활성 작업과 다음 작업 후보를 기록 |
 | 기능 레지스트리 | `docs/contributing/feature-registry.md` | 기능별 소유 경로와 중복 방지 규칙을 기록 |
 | 설계/계획 기록 | `docs/superpowers/specs/`, `docs/superpowers/plans/` | 기능을 구현하기 전 요구사항과 실행 순서를 남김 |
-| Codex 스킬 | `~/.codex/skills/<project-skill>` | 새 Codex 세션이 kmu-sw-navigator 과제 조건과 repo 규칙을 복원하도록 함 |
-| 다음 작업 스킬 | `~/.codex/skills/<project-next-step-skill>` | 현재 구현 상태를 다시 읽고 다음 vertical slice를 고르도록 함 |
+| Codex 스킬 | `~/.codex/skills/kmu-sw-navigator-rules`, `~/.codex/skills/kmu-sw-navigator-post-feature` | 새 Codex 세션이 kmu-sw-navigator 과제 조건, repo 규칙, 완료 전 검증 절차를 복원하도록 함 |
+| 다음 작업/병렬 스킬 | `~/.codex/skills/kmu-sw-navigator-next-step`, `~/.codex/skills/kmu-sw-navigator-parallel-sessions` | 현재 구현 상태를 다시 읽고 다음 vertical slice를 고르거나 안전한 worktree 병렬 작업을 나누도록 함 |
 | 검증 명령 | `pnpm docs:check`, `pnpm wiki:build`, `pnpm test:backend`, `pnpm lint:backend`, `pnpm build:frontend` | 문서, Python 백엔드, wiki 생성, 프론트 빌드가 실제로 동작하는지 확인 |
 | 사용 기록 | `docs/llm/usage-log.md`, `docs/llm/prompt-summary-log.md` | 어떤 목적으로 LLM을 썼고 어떤 결정을 사람이 검토했는지 제출용으로 남김 |
+
+교수님이 에이전트 기반 코딩 과정을 확인할 수 있도록 별도 증거 문서도 둡니다.
+
+```txt
+docs/llm/agent-coding-evidence.md
+```
+
+이 문서는 에이전트 개발 하네스, Codex/Gemini Code Assist/Gemini API 역할 구분, 사람이 직접 검토한 기준, 과제 조건과의 연결을 한 번에 설명합니다.
 
 이 구조의 핵심은 “프롬프트 한 번으로 완성된 코드”가 아니라, 다음 순서를 반복했다는 점입니다.
 
@@ -107,3 +119,11 @@ AGENTS.md와 docs/README.md로 규칙 복원
 기능 단위 작업은 PR을 통해 Gemini Code Assist 자동 리뷰와 팀원 리뷰를 받습니다. 리뷰 코멘트는 그대로 따르는 것이 아니라, 타당성을 확인한 뒤 반영하거나 반영하지 않는 이유를 답합니다. 이 과정은 “LLM 생성 코드를 그대로 제출하지 않았다”는 협업 증거로 사용합니다.
 
 코드 주석은 설명 가능한 부분에만 답니다. 특히 RAG 검색 우선순위, wiki compiler의 병합 규칙, 추천 조건문처럼 발표에서 질문받을 가능성이 높은 의사결정에는 짧은 의도 주석을 남깁니다.
+
+## 발표에서 강조할 에이전트 활용 포인트
+
+- Codex는 repo 문서를 먼저 읽고 feature registry와 plan을 기준으로 작업 범위를 좁히는 PM/개발 보조 역할로 사용했습니다.
+- Superpowers spec/plan은 “바로 코드를 쓰는 것”을 막고 요구사항, 구현 순서, 검증 명령을 먼저 남기기 위한 하네스로 사용했습니다.
+- Gemini Code Assist 리뷰는 정답이 아니라 검토 의견으로 다루고, 타당한 지적만 코드/테스트/문서에 반영했습니다.
+- Gemini API는 앱 기능에서 사용하는 LLM으로, 개발 보조 에이전트인 Codex와 역할을 구분했습니다.
+- 사람이 직접 한 일은 주제 결정, 범위 축소, 코드 구조 검토, 과제 조건 충족 확인, 테스트 실행, 실패 원인 판단, 문서 최신화입니다.

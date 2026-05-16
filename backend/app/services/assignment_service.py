@@ -175,8 +175,10 @@ def preview_assignment_from_text(
 ) -> AssignmentPreviewResponse:
     today = reference_date or date.today()
     if parser is not None:
+        # Gemini parser는 자연어 표현을 넓게 처리하지만, 실패해도 과제 데모가 멈추지 않게 한다.
         parsed = _try_parse_with_parser(text, parser=parser, reference_date=today)
         if parsed is not None:
+            # D-day는 LLM 출력값을 믿지 않고 Python 날짜 계산으로 다시 산출한다.
             d_day = calculate_d_day(parsed.due_at, today=today)
             return AssignmentPreviewResponse(
                 title=parsed.title,
@@ -190,6 +192,7 @@ def preview_assignment_from_text(
                 parser="gemini",
             )
 
+    # 외부 키가 없거나 Gemini 결과가 불완전할 때도 설명 가능한 Python 규칙 parser로 동작한다.
     due_date = _extract_due_date(text, today)
     title = _extract_title(text)
     course = _extract_course(text)
@@ -204,6 +207,7 @@ def preview_assignment_from_text(
 
     due_at = datetime.combine(due_date, time(hour=23, minute=59))
     d_day = calculate_d_day(due_at, today=today)
+    # confidence와 missing_fields는 사용자가 저장 전에 추출 결과를 검토해야 하는지 보여주는 신호다.
     confidence = 0.85 if not missing_fields else 0.45
     return AssignmentPreviewResponse(
         title=title,
@@ -260,6 +264,7 @@ def format_d_day(d_day: int) -> str:
 
 def _extract_due_date(text: str, today: date) -> date | None:
     normalized = text.strip()
+    # 자주 쓰는 상대 날짜는 LLM 없이도 재현 가능해야 하므로 Python 조건문으로 먼저 처리한다.
     if "오늘" in normalized:
         return today
     if "내일" in normalized:
@@ -271,6 +276,7 @@ def _extract_due_date(text: str, today: date) -> date | None:
                 return start_next_week + timedelta(days=index)
         return today + timedelta(days=7)
 
+    # 명시 날짜는 정규식으로 처리해 발표에서 입력->출력 변환 기준을 설명할 수 있게 한다.
     date_match = re.search(r"(20\d{2})[-./년 ]+(\d{1,2})[-./월 ]+(\d{1,2})", normalized)
     if date_match:
         year, month, day = (int(part) for part in date_match.groups())
@@ -285,6 +291,7 @@ def _extract_due_date(text: str, today: date) -> date | None:
 
 
 def _extract_title(text: str) -> str:
+    # 제목은 날짜/제출 표현을 걷어낸 남은 문장으로 잡아, 사용자가 입력한 의미를 최대한 보존한다.
     cleaned = re.sub(r"(오늘|내일|다음주\s*[월화수목금토일]요일|까지|마감|제출)", " ", text)
     cleaned = re.sub(r"20\d{2}[-./년 ]+\d{1,2}[-./월 ]+\d{1,2}", " ", cleaned)
     cleaned = re.sub(r"\d{1,2}월\s*\d{1,2}일", " ", cleaned)
@@ -293,6 +300,7 @@ def _extract_title(text: str) -> str:
 
 
 def _extract_course(text: str) -> str | None:
+    # 과목명은 "자료구조 과제"처럼 과제/시험/프로젝트 앞 표현을 단순 규칙으로 추출한다.
     match = re.search(r"([가-힣A-Za-z0-9 ]{2,20})(?:\s*과제|\s*시험|\s*프로젝트)", text)
     if not match:
         return None
@@ -328,6 +336,7 @@ def _try_parse_with_parser(
     try:
         parsed = parser.parse_assignment(text, reference_date=reference_date)
     except Exception:
+        # LLM/API 오류는 사용자 입력 실패가 아니므로 Python fallback으로 이어간다.
         return None
     if not parsed.title.strip():
         return None
@@ -364,4 +373,5 @@ def _bounded_confidence(value: object) -> float:
         confidence = float(value)
     except (TypeError, ValueError):
         return 0.7
+    # 외부 parser가 이상한 확률값을 줘도 API 응답은 0.0~1.0 범위로 고정한다.
     return min(max(confidence, 0.0), 1.0)

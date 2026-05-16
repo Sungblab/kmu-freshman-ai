@@ -9,6 +9,7 @@ class EvidenceCheck:
     requirement: str
     paths: tuple[str, ...]
     keywords: tuple[str, ...] = ()
+    require_all_keywords: bool = False
 
 
 CHECKS = (
@@ -80,6 +81,18 @@ CHECKS = (
             "backend/app/services/llm_usage_log_service.py",
         ),
     ),
+    EvidenceCheck(
+        "LLM 생성 코드 그대로 사용 금지 증거",
+        (
+            "AGENTS.md",
+            "docs/architecture/python-core-logic.md",
+            "docs/llm/usage-log.md",
+            "docs/llm/agent-coding-evidence.md",
+            "docs/report/submission-checklist.md",
+        ),
+        ("그대로", "직접 검토", "수정", "테스트"),
+        require_all_keywords=True,
+    ),
 )
 
 
@@ -91,19 +104,20 @@ def check_evidence(repo_root: Path) -> list[str]:
             failures.append(f"{check.requirement}: missing paths: {', '.join(missing_paths)}")
             continue
 
-        if check.keywords and not _any_keyword_exists(repo_root, check.paths, check.keywords):
+        if check.keywords and not _keywords_exist(repo_root, check):
             failures.append(
                 f"{check.requirement}: missing keywords: {', '.join(check.keywords)}"
             )
     return failures
 
 
-def _any_keyword_exists(repo_root: Path, paths: tuple[str, ...], keywords: tuple[str, ...]) -> bool:
-    for path in paths:
-        content = (repo_root / path).read_text(encoding="utf-8")
-        if any(keyword in content for keyword in keywords):
-            return True
-    return False
+def _keywords_exist(repo_root: Path, check: EvidenceCheck) -> bool:
+    combined = "\n".join(
+        (repo_root / path).read_text(encoding="utf-8") for path in check.paths
+    )
+    if check.require_all_keywords:
+        return all(keyword in combined for keyword in check.keywords)
+    return any(keyword in combined for keyword in check.keywords)
 
 
 def main() -> int:

@@ -62,9 +62,11 @@
 8. LLM 활용 방식
    - Gemini API 사용 위치
    - Codex/Superpowers 개발 보조 방식
+   - 에이전트 기반 코딩 활용 증거: `docs/llm/agent-coding-evidence.md`
    - AGENTS.md 기반 repo 규칙과 문서 읽기 순서
    - Codex 전용 스킬과 개발 현황 추적 스킬
    - spec/plan/verification으로 구성한 LLM 개발 하네스
+   - Codex, Gemini Code Assist, Gemini API의 역할 구분
    - 직접 검토, 수정, 테스트한 내용
    - LLM 생성 코드를 그대로 제출하지 않기 위해 수행한 리팩토링과 설명 문서화
 
@@ -95,4 +97,8 @@
 
 ```txt
 본 프로젝트는 LLM을 개발 보조 도구로 활용했지만, 핵심 Python 로직은 함수 단위로 분리하고 테스트를 작성해 직접 검증했다. 추천 기능은 LLM 임의 생성이 아니라 리스트/딕셔너리 기반 후보와 조건문 점수 계산으로 구현했으며, RAG와 Gemini는 답변의 근거와 자연어 생성을 보조하는 역할로 분리했다.
+```
+
+```txt
+교수님이 중요하게 본 에이전트 기반 코딩 과정은 별도 문서와 로그로 남겼다. Codex는 PRD 분석, spec/plan 작성, 코드 수정, 검증 명령 실행, 실패 원인 분석에 사용했고, Gemini Code Assist는 리뷰 의견을 받는 데 사용했다. 단, 최종 코드는 사람이 직접 읽고 수정했으며 `pnpm verify:local`, backend tests, frontend build, docs check 같은 명령으로 동작을 확인했다.
 ```
